@@ -85,3 +85,30 @@ export const getFistClass = (secondClass: JOB) => {
 
   return firstClassMap[secondClass];
 };
+
+export const validateSkillColor = (
+  skill: { id: number; level: number },
+  skillData: ISkillData[][]
+) => {
+  const currentSkill = getSkillDataFromId(skill.id);
+  const requiredSkillResult = currentSkill?.requirements.map(
+    (req) => getSkillContextFromId(skillData, req.skill).level >= req.level
+  );
+
+  if (requiredSkillResult?.includes(false)) return "grayscale";
+  if (skill.level == 0) return "grayscale-[50%]";
+  else return "grayscale-0";
+};
+
+export const getSkillLevelText = (
+  level: number,
+  skillId: number,
+  isDesc: boolean
+): string => {
+  const skillData = getSkillDataFromId(skillId);
+  if (level === 0 || !skillData) return "";
+
+  const maxSkillLevel = skillData.levels.length;
+  if (level === maxSkillLevel) return isDesc ? `${level} (Max)` : `max`;
+  return level.toString();
+};

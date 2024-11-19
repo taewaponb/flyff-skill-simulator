@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { useAppContext } from "../components/context";
+import { useAppContext } from "./context";
 import { getFistClass, wordCapitalize } from "../helper/helper";
 import { JOB } from "../data/enum";
 
@@ -74,17 +74,17 @@ export const JobChangeMenu = () => {
     <div className="fixed z-50 inset-0 overflow-y-auto cursor-default">
       <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
         <div
-          className="fixed inset-0 bg-black bg-opacity-75 transition-opacity"
+          className="fixed inset-0 bg-black bg-opacity-95 transition-opacity"
           onClick={() => setJobChangeMenu(false)}
         >
           <div className="flex flex-col  relative top-1/3 justify-center">
-            <span className="font-bold mb-6">Select your class</span>
-            <div className="flex flex-row  relative top-1/3 justify-center cursor-pointer">
+            <span className="font-bold text-xl mb-6">SELECT YOUR CLASS</span>
+            <div className="flex flex-row relative top-1/3 justify-center cursor-pointer mb-24">
               {jobDisplay()}
             </div>
+            <span className="text-red-500 hover:cursor-pointer">Cancel</span>
           </div>
         </div>
-        di
       </div>
     </div>
   ) : null;

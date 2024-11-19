@@ -6,37 +6,26 @@ import {
   wordCapitalize,
   getSkillContextFromId,
   getSkillDataFromId,
+  validateSkillColor,
+  getSkillLevelText,
 } from "../helper/helper";
 import { ISkillData } from "../data/interface";
 
-const transitionStyle = `transition-transform motion-reduce:transform-none ease-in-out duration-500`;
+const transitionStyle = `transition-transform motion-reduce:transform-none ease-in-out duration-250 transform active:scale-125`;
 
 export const Skill = () => {
-  const { userData, skillData, setSkillData, setUserData, setFocusSkill } =
-    useAppContext();
+  const {
+    userData,
+    skillData,
+    focusSkill,
+    setSkillData,
+    setUserData,
+    setFocusSkill,
+  } = useAppContext();
 
   const checkIsContainSkill = (skill: number) => skill !== 0;
-  const setFocus = (skillId: number) => setFocusSkill(skillId);
-  const textSkillLevel = (level: number, skillId: number) => {
-    const maxSkillLevel = getSkillDataFromId(skillId)!.levels.length;
-    if (level == 0) return "";
-    if (level == maxSkillLevel) return "max";
-    else return level.toString();
-  };
-
-  const skillStyle = (skill: { id: number; level: number }) => {
-    const currentSkill = getSkillDataFromId(skill.id);
-    const requiredSkillResult = currentSkill?.requirements.map(
-      (req) => getSkillContextFromId(skillData, req.skill).level >= req.level
-    );
-
-    if (requiredSkillResult?.includes(false)) return "grayscale";
-    if (skill.level == 0) return "grayscale-[50%]";
-    else return "grayscale-0";
-  };
-
   const updateSkillLevel = (skillId: number, value: number) => {
-    setFocus(skillId);
+    setFocusSkill(skillId);
     const pointCost = value * getSkillDataFromId(skillId)!.skillPoints;
     const maxSkillLevel = getSkillDataFromId(skillId)!.levels.length;
     if (userData.currentPoints < pointCost) return;
@@ -72,51 +61,65 @@ export const Skill = () => {
           <div
             className={`grid text-center grid-cols-5 mb-6 lg:mb-0 hover:cursor-pointer`}
           >
-            {skillData.map((skillData: ISkillData[], skillIndex: number) => (
+            {skillData.map((data: ISkillData[], skillIndex: number) => (
               <div
                 key={skillIndex}
                 className={`grid text-center grid-rows-4 lg:mb-0 hover:cursor-pointer`}
               >
-                {skillData.map((skill: ISkillData, dataIndex: number) =>
-                  job === skill.class && checkIsContainSkill(skill.id) ? (
+                {data.map((skill: ISkillData, dataIndex: number) => {
+                  const lvlButtonVisible =
+                    validateSkillColor(skill, skillData) != "grayscale"
+                      ? "invisible" // force invisible (QOL experiment)
+                      : "invisible";
+                  const isFocus = focusSkill === skill.id;
+
+                  return job === skill.class &&
+                    checkIsContainSkill(skill.id) ? (
                     <span key={dataIndex} className="group relative">
                       <h2 className={`text-xs lg:text-3xl font-semibold`}>
                         <span
-                          className={`${transitionStyle}  ${
-                            skillStyle(skill) != "grayscale"
-                              ? "visible"
-                              : "invisible"
-                          } inline-block translate-x-8 group-hover:-translate-x-1 hover:scale-125 text-green-400`}
+                          id="increaseLvlButton"
+                          className={`${transitionStyle} ${lvlButtonVisible} ${
+                            isFocus ? "-translate-x-1" : "translate-x-8"
+                          } inline-block text-green-400`}
                           onClick={() => updateSkillLevel(skill.id, 1)}
                         >
                           +
                         </span>
-                        <Image
-                          className={`${transitionStyle} ${skillStyle(
-                            skill
-                          )} inline-block relative z-10 group-hover:scale-110 hover:${skillStyle(
-                            skill
-                          )}`}
-                          src={`/skills/${getSkillDataFromId(skill.id)?.icon}`}
-                          alt="skillImage"
-                          width={40}
-                          height={40}
-                          priority
-                          draggable={false}
-                          onClick={() => setFocus(skill.id)}
-                        />
+                        <div
+                          className={`relative inline-block border-2 ${
+                            isFocus ? "border-yellow-500" : "border-transparent"
+                          }`}
+                        >
+                          <Image
+                            id={"skillImage"}
+                            className={`${transitionStyle} ${validateSkillColor(skill, skillData)} ${
+                              isFocus ? "scale-110" : "hover:scale-110"
+                            } inline-block relative z-10 `}
+                            src={`/skills/${getSkillDataFromId(skill.id)?.icon}`}
+                            alt="skillImage"
+                            width={40}
+                            height={40}
+                            priority
+                            draggable={false}
+                            onClick={() =>
+                              focusSkill === skill.id
+                                ? setFocusSkill(0)
+                                : setFocusSkill(skill.id)
+                            }
+                          />
+                        </div>
                         <span
                           className={`${transitionStyle} inline-block absolute z-20 -right-7 lg:-right-5 text-sm -translate-x-10 translate-y-5 group-hover:scale-110 drop-shadow-[1px_1px_3px_#FF0000]`}
-                          onClick={() => setFocus(skill.id)}
+                          onClick={() => setFocusSkill(skill.id)}
                         >
-                          {textSkillLevel(skill.level, skill.id)}
+                          {getSkillLevelText(skill.level, skill.id, false)}
                         </span>
                         <span
-                          className={`${transitionStyle} ${
-                            skillStyle(skill) != "grayscale"
-                              ? "visible"
-                              : "invisible"
-                          } inline-block -translate-x-8 group-hover:translate-x-1 hover:scale-125 text-red-400`}
+                          id="decreaseLvlButton"
+                          className={`${transitionStyle} ${lvlButtonVisible} ${
+                            isFocus ? "translate-x-1" : "-translate-x-8"
+                          } inline-block text-red-400`}
                           onClick={() => updateSkillLevel(skill.id, -1)}
                         >
                           -
@@ -125,8 +128,8 @@ export const Skill = () => {
                     </span>
                   ) : (
                     <span key={dataIndex} />
-                  )
-                )}
+                  );
+                })}
               </div>
             ))}
           </div>

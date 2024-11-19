@@ -2,14 +2,14 @@
 
 import { wordCapitalize, getPoints } from "../helper/helper";
 import { initialSkillData, initialUserData, useAppContext } from "./context";
-import { JobChangeMenu } from "./jobChange";
+import { JobChangeMenu } from "./jobChangePopup";
 
 export const Menu = () => {
   const { userData, setUserData, setSkillData, setJobChangeMenu } =
     useAppContext();
 
   const resetPoints = () => {
-    if (confirm("Reset to Default?")) {
+    if (confirm("Reset points to default?")) {
       setUserData(initialUserData);
       setSkillData(initialSkillData);
     }
@@ -17,7 +17,7 @@ export const Menu = () => {
 
   const setLevel = () => {
     const usedPoints = userData.allPoints - userData.currentPoints;
-    let level = prompt("Type your level", "60");
+    let level = prompt("Type your level (Max is 120)", "60");
     if (level === null) return;
     if (Number(level) < 15) level = "15";
     if (Number(level) > 120) level = "120";
