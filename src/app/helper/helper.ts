@@ -1,6 +1,6 @@
-import { JOB } from "../data/enum";
-import { ISkillData } from "../data/interface";
-import { DEFAULTPARAMS, SKILLS, SPECIALPARAMS } from "../data/skills";
+import { JOB } from "../data/enums";
+import { ISkillData } from "../data/interfaces";
+import { DEFAULTPARAMS, SKILLS, SPECIALPARAMS } from "../data/params";
 
 export const wordCapitalize = (str: string) => {
   return str.charAt(0).toUpperCase() + str.slice(1);

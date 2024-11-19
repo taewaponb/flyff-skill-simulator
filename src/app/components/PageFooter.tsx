@@ -1,4 +1,4 @@
-export const Footer = () => {
+export const PageFooter = () => {
   return (
     <div className="opacity-50 text-xs">
       The data and assets are from the{" "}

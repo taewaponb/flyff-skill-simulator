@@ -1,4 +1,4 @@
-import { JOB } from "../enum";
+import { JOB } from "./enums";
 
 export const classDescription = [
   {
@@ -41,15 +41,4 @@ export const classDescription = [
     DESCRIPTION:
       "Billposters are very self-sufficient and love to hit very hard in bursts. With their knuckles and variety of skills, they are a very capable class in many situations.",
   },
-];
-
-const classList = [
-  JOB.KNIGHT,
-  JOB.BLADE,
-  JOB.RANGER,
-  JOB.JESTER,
-  JOB.ELEMENTOR,
-  JOB.PSYCHIKEEPER,
-  JOB.RINGMASTER,
-  JOB.BILLPOSTER,
 ];

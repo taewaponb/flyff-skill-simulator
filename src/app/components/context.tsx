@@ -2,22 +2,26 @@
 
 import React, { useEffect } from "react";
 import { createContext, useContext, useState } from "react";
-import { JOB } from "../data/enum";
-import { IUserData, ISkillData } from "../data/interface";
-import { assistSkillContext } from "../data/class/assist";
-import { ringmasterSkillContext } from "../data/class/ringmaster";
+import { JOB } from "../data/enums";
+import { IUserData, ISkillData } from "../data/interfaces";
+import { assistSkillTree } from "../data/skillTree/assist";
+import { ringmasterSkillTree } from "../data/skillTree/ringmaster";
+import { rangerSkillTree } from "../data/skillTree/ranger";
+import { acrobatSkillTree } from "../data/skillTree/acrobat";
 
 export const initialUserData = {
   id: 1,
-  class: [JOB.ASSIST, JOB.RINGMASTER],
+  class: [JOB.ACROBAT, JOB.RANGER],
   level: 60,
   currentPoints: 338,
   allPoints: 338,
 };
 
 export const initialSkillData = [
-  ...assistSkillContext,
-  ...ringmasterSkillContext,
+  ...assistSkillTree,
+  ...ringmasterSkillTree,
+  // ...acrobatSkillTree,
+  // ...rangerSkillTree,
 ] as ISkillData[][];
 
 const AppContext = createContext<{

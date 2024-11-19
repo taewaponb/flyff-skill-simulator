@@ -1,4 +1,4 @@
-import { JOB } from "./enum";
+import { JOB } from "./enums";
 
 export interface IUserData {
   id: number;

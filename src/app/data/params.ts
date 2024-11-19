@@ -1,9 +1,8 @@
-import { assistSkill } from "./class/assist";
-import { ringmasterSkill } from "@/app/data/class/ringmaster";
-import { PARAMS } from "./enum";
-import { ISkill } from "./interface";
+import { PARAMS } from "./enums";
+import { ISkill } from "./interfaces";
+import { classData } from "./classData";
 
-export const SKILLS = [...assistSkill, ...ringmasterSkill] as ISkill[];
+export const SKILLS = classData as ISkill[];
 
 export const DEFAULTPARAMS = [
   {

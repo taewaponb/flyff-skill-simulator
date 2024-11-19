@@ -9,11 +9,11 @@ import {
   validateSkillColor,
   getSkillLevelText,
 } from "../helper/helper";
-import { ISkillData } from "../data/interface";
+import { ISkillData } from "../data/interfaces";
 
 const transitionStyle = `transition-transform motion-reduce:transform-none ease-in-out duration-250 transform active:scale-125`;
 
-export const Skill = () => {
+export const SkillTree = () => {
   const {
     userData,
     skillData,
