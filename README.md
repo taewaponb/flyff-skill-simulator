@@ -3,8 +3,7 @@
 Made with love for "Flyff Universe".
 
 ## Link
-- Main: https://www.flyffusp.online
-- Secondary: https://flyffusp.vercel.app
+- Main: https://flyffusp.vercel.app
 
 ## Get started
 1. Run `yarn` command to install all dependencies and packages.
