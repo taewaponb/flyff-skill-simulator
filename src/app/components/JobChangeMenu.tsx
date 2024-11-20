@@ -1,9 +1,11 @@
 import Image from "next/image";
-import { useAppContext, initialSkillData } from "./context";
+import { useAppContext, initialSkillData } from "../context";
 import { getFistClass, wordCapitalize } from "../helper/helper";
 import { JOB } from "../data/enums";
 
-export const JobChangeMenu = () => {
+const transitionStyle = `transition-transform motion-reduce:transform-none ease-in-out duration-500`;
+
+export const JobChangeMenu: React.FC = () => {
   const {
     userData,
     jobChangeMenu,
@@ -12,7 +14,6 @@ export const JobChangeMenu = () => {
     setSkillData,
     setFocusSkill,
   } = useAppContext();
-  const transitionStyle = `transition-transform motion-reduce:transform-none ease-in-out duration-500`;
 
   const classList = [
     JOB.KNIGHT,

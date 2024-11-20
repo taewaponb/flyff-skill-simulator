@@ -1,10 +1,10 @@
 "use client";
 
 import { wordCapitalize, getPoints } from "../helper/helper";
-import { initialSkillData, initialUserData, useAppContext } from "./context";
+import { initialSkillData, initialUserData, useAppContext } from "../context";
 import { JobChangeMenu } from "./JobChangeMenu";
 
-export const PageMenu = () => {
+export const PageMenu: React.FC = () => {
   const { userData, setUserData, setSkillData, setJobChangeMenu } =
     useAppContext();
 

@@ -2,12 +2,13 @@
 
 import React, { useEffect } from "react";
 import { createContext, useContext, useState } from "react";
-import { JOB } from "../data/enums";
-import { IUserData, ISkillData } from "../data/interfaces";
-import { assistSkillTree } from "../data/skillTree/assist";
-import { ringmasterSkillTree } from "../data/skillTree/ringmaster";
-import { rangerSkillTree } from "../data/skillTree/ranger";
-import { acrobatSkillTree } from "../data/skillTree/acrobat";
+import { JOB } from "./data/enums";
+import { IUserData, ISkillData } from "./data/interfaces";
+import { assistSkillTree } from "./data/skillTree/assist";
+import { ringmasterSkillTree } from "./data/skillTree/ringmaster";
+import { billposterSkillTree } from "./data/skillTree/billposter";
+import { acrobatSkillTree } from "./data/skillTree/acrobat";
+import { rangerSkillTree } from "./data/skillTree/ranger";
 
 export const initialUserData = {
   id: 1,
@@ -20,8 +21,9 @@ export const initialUserData = {
 export const initialSkillData = [
   ...assistSkillTree,
   ...ringmasterSkillTree,
-  // ...acrobatSkillTree,
-  // ...rangerSkillTree,
+  ...billposterSkillTree,
+  ...acrobatSkillTree,
+  ...rangerSkillTree,
 ] as ISkillData[][];
 
 const AppContext = createContext<{

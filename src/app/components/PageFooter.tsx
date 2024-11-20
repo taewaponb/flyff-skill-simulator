@@ -1,8 +1,8 @@
-export const PageFooter = () => {
+export const PageFooter: React.FC = () => {
   return (
     <div className="opacity-50 text-xs">
-      The data and assets are from the{" "}
-      <a href={"https://api.flyff.com/"}>FlyFF Universe API.</a>
+      The data and assets are from{" "}
+      <a href={"https://api.flyff.com/"}>FlyFF Universe.</a>
     </div>
   );
 };

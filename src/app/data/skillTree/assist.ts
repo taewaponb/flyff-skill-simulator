@@ -1,11 +1,5 @@
 import { JOB } from "../enums";
 
-//0
-//
-//
-//
-//
-
 export const assistSkillTree = [
   [
     {

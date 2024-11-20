@@ -11,6 +11,14 @@ export const ringmasterSkillTree = [
       timeDesc: true,
     },
     {
+      id: 0,
+      level: 0,
+      class: JOB.RINGMASTER,
+      scaling: false,
+      attackDesc: true,
+      timeDesc: true,
+    },
+    {
       id: 8183,
       level: 0,
       class: JOB.RINGMASTER,
@@ -37,6 +45,14 @@ export const ringmasterSkillTree = [
       timeDesc: true,
     },
     {
+      id: 0,
+      level: 0,
+      class: JOB.RINGMASTER,
+      scaling: false,
+      attackDesc: true,
+      timeDesc: true,
+    },
+    {
       id: 9047,
       level: 0,
       class: JOB.RINGMASTER,
@@ -54,6 +70,14 @@ export const ringmasterSkillTree = [
     },
   ],
   [
+    {
+      id: 0,
+      level: 0,
+      class: JOB.RINGMASTER,
+      scaling: false,
+      attackDesc: true,
+      timeDesc: true,
+    },
     {
       id: 6845,
       level: 0,
@@ -80,6 +104,14 @@ export const ringmasterSkillTree = [
     },
   ],
   [
+    {
+      id: 0,
+      level: 0,
+      class: JOB.RINGMASTER,
+      scaling: false,
+      attackDesc: true,
+      timeDesc: true,
+    },
     {
       id: 0,
       level: 0,

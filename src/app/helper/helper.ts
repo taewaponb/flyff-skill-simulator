@@ -17,13 +17,12 @@ export const getSkillContextFromId = (skillData: ISkillData[][], id: number) =>
     .filter((data) => data.find((skill) => skill.id === id))
     .map((data) => data.find((skill) => skill.id === id)!)[0];
 
-export const getTimeFormat = (duration: number) => {
-  const mins = ~~((duration % 3600) / 60);
-  const secs = ~~duration % 60;
-  let time = "";
-  time += "0" + mins + ":" + (secs < 10 ? "0" : "");
-  time += "" + secs;
-  return time;
+export const getTimeFormat = (duration: number): string => {
+  const mins = Math.floor((duration % 3600) / 60);
+  const secs = Math.round(duration % 60);
+  const formattedMins = mins.toString().padStart(2, "0");
+  const formattedSecs = secs.toString().padStart(2, "0");
+  return `${formattedMins}:${formattedSecs}`;
 };
 
 export const getDefaultParams = (params: any) =>

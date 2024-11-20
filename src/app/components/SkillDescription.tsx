@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useAppContext } from "./context";
+import { useAppContext } from "../context";
 import {
   getSkillContextFromId,
   getSkillDataFromId,
@@ -18,7 +18,7 @@ import { classDescription } from "../data/classDescription";
 
 const transitionStyle = `transition-transform motion-reduce:transform-none ease-in-out duration-250 transform active:scale-125`;
 
-export const SkillDescription = () => {
+export const SkillDescription: React.FC = () => {
   const {
     userData,
     skillData,
@@ -72,7 +72,7 @@ export const SkillDescription = () => {
     const isScaleValid = (param: string) =>
       param === PARAMS.TIME || param === PARAMS.DURATION;
 
-    const Tab = (data: { value: string; style?: string }) => (
+    const InlineDescription = (data: { value: string; style?: string }) => (
       <p className={`m-0 lg:w-[40ch] text-sm ${data.style}`}>{data.value}</p>
     );
 
@@ -80,10 +80,10 @@ export const SkillDescription = () => {
       return levelAbility?.map((ability, index) => {
         if (isBaseValid(ability.parameter)) {
           return (
-            <Tab
+            <InlineDescription
               value={`Base ${getDefaultParams(ability.parameter)?.detail}: ${
                 ability.add
-              }`}
+              } `}
               style="font-bold"
               key={index}
             />
@@ -100,7 +100,7 @@ export const SkillDescription = () => {
           isBaseValid(levelScaling![1].parameter)
         ) {
           return (
-            <Tab
+            <InlineDescription
               value={`${
                 getDefaultParams(levelScaling[0].parameter)?.detail
               } Scaling: ${levelScaling[0].stat.toUpperCase()} x ${levelScaling[0].scale?.toFixed(
@@ -116,7 +116,7 @@ export const SkillDescription = () => {
       return levelScaling?.map((scaling, index) => {
         if (isBaseValid(scaling.parameter)) {
           return (
-            <Tab
+            <InlineDescription
               value={`${
                 getDefaultParams(scaling.parameter)?.detail
               } Scaling: ${scaling.stat.toUpperCase()} x ${scaling.scale?.toFixed(
@@ -132,7 +132,7 @@ export const SkillDescription = () => {
 
     return (
       <>
-        <Tab
+        <InlineDescription
           value={`${skillLevel?.consumedMP ? "MP" : "FP"}: ${
             skillLevel?.consumedMP
               ? skillLevel?.consumedMP
@@ -145,7 +145,7 @@ export const SkillDescription = () => {
           const requiredSkill = getSkillContextFromId(skillData, req.skill);
 
           return (
-            <Tab
+            <InlineDescription
               value={`${skillName} skill level ${req.level} is needed.`}
               style={requiredSkill.level >= req.level ? "" : "text-red-600"}
               key={index}
@@ -153,13 +153,13 @@ export const SkillDescription = () => {
           );
         })}
 
-        <Tab
+        <InlineDescription
           value={`Character Level: ${currentSkill!.level}`}
           style={userData.level >= currentSkill!.level ? "" : "text-red-600"}
         />
 
         {skillLevel?.minAttack && (
-          <Tab
+          <InlineDescription
             value={`Base Damage: ${skillLevel?.minAttack} ~ ${skillLevel?.maxAttack}`}
             style="font-bold"
           />
@@ -169,8 +169,13 @@ export const SkillDescription = () => {
         {currentFocusSkill!.attackDesc && attackScalingDescription()}
 
         {skillLevel?.duration && (
-          <Tab
-            value={`Base Time: ${getTimeFormat(skillLevel?.duration)}`}
+          <InlineDescription
+            value={`Base Time: ${getTimeFormat(skillLevel?.duration)} ${
+              skillLevel?.durationPVP &&
+              skillLevel?.duration !== skillLevel?.durationPVP
+                ? `/ ${getTimeFormat(skillLevel?.durationPVP)} (PVP & Giants)`
+                : ""
+            }`}
             style="font-bold"
           />
         )}
@@ -178,7 +183,7 @@ export const SkillDescription = () => {
         {levelScaling?.map((scaling, index) => {
           if (isScaleValid(scaling.parameter)) {
             return (
-              <Tab
+              <InlineDescription
                 value={`${
                   getDefaultParams(scaling.parameter)?.detail
                 } Scaling: ${scaling.stat.toUpperCase()} x ${scaling.scale}`}
@@ -191,21 +196,21 @@ export const SkillDescription = () => {
         })}
 
         {skillLevel?.casting && Number(skillLevel?.casting) >= 1 && (
-          <Tab
+          <InlineDescription
             value={`Casting Time: ${getTimeFormat(skillLevel?.casting)}`}
             style="font-bold"
           />
         )}
 
         {skillLevel?.cooldown && (
-          <Tab
+          <InlineDescription
             value={`Cooldown: ${getTimeFormat(skillLevel?.cooldown)}`}
             style="font-bold"
           />
         )}
 
         {skillLevel?.spellRange && (
-          <Tab
+          <InlineDescription
             value={`Spell Range: ${skillLevel?.spellRange} (${getRangeText(
               currentSkill?.target
             )})`}
@@ -214,14 +219,14 @@ export const SkillDescription = () => {
         )}
 
         {skillLevel?.dotTick && (
-          <Tab
+          <InlineDescription
             value={`DoT Tick: ${skillLevel?.dotTick} Seconds`}
             style="font-bold"
           />
         )}
 
         {!currentSkill?.flying && (
-          <Tab value={`Flying: No`} style="font-bold" />
+          <InlineDescription value={`Flying: No`} style="font-bold" />
         )}
 
         {levelAbility?.map((ability: IAbilities, index) => {
@@ -246,7 +251,7 @@ export const SkillDescription = () => {
             };
 
             return (
-              <Tab
+              <InlineDescription
                 value={`${detail} ${detailValue()}${skillType()}${prefix}${
                   ability.add
                 }${suffix}`}
@@ -269,7 +274,7 @@ export const SkillDescription = () => {
             const suffix = getSpecialParams(scaling.parameter)?.suffix;
 
             return (
-              <Tab
+              <InlineDescription
                 value={`${detail} Scaling: ${prefix}${
                   Number(scaling.scale) * perStats
                 }${suffix} per ${perStats} INT (max ${
@@ -283,7 +288,7 @@ export const SkillDescription = () => {
           return null;
         })}
 
-        <Tab value={`${currentSkill?.description.en}`} />
+        <InlineDescription value={`${currentSkill?.description.en}`} />
       </>
     );
   };
@@ -361,7 +366,8 @@ export const SkillDescription = () => {
           draggable={false}
         />
 
-        <span className={`${isLvlButtonVisible} flex justify-between`}>
+        {/* <span className={`${isLvlButtonVisible} flex justify-between`}> */}
+        <span className={`flex justify-between`}>
           <div
             className={`${transitionStyle} text-5xl inline-block text-green-400 hover:cursor-pointer`}
             onClick={() => updateSkillLevel(focusSkill, 1)}

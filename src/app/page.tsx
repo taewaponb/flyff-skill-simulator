@@ -1,6 +1,6 @@
 "use client";
 
-import { AppWrapper } from "./components/context";
+import { AppWrapper } from "./context";
 import { PageHeader } from "./components/PageHeader";
 import { SkillDescription } from "./components/SkillDescription";
 import { SkillTree } from "./components/SkillTree";

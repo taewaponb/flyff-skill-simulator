@@ -15,6 +15,7 @@ export interface ISkillData {
   scaling: boolean;
   attackDesc: boolean;
   timeDesc: boolean;
+  arrow: boolean;
 }
 
 export interface ISkill {
